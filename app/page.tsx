@@ -17,7 +17,7 @@ type Tile = {
   detail: string;
   href: string;
   tone: string;
-  visual: "nodes" | "quote" | "monogram" | "type" | "terminal" | "blocks" | "landscape" | "curve";
+  visual: "nodes" | "quote" | "monogram" | "type" | "lock" | "blocks" | "imagery" | "motion";
   initial: Frame;
   radius?: string;
 };
@@ -25,8 +25,8 @@ type Tile = {
 const tiles: Tile[] = [
   {
     id: "about",
-    title: "About",
-    detail: "文山木公 / Qi Wensong",
+    title: "文山木公",
+    detail: "好奇、耐心，也有一点较真；喜欢把喜欢的事做成工具，在云与开源里长期折腾。",
     href: "#profile",
     tone: "navy",
     visual: "nodes",
@@ -67,7 +67,7 @@ const tiles: Tile[] = [
     detail: "检索、图床、临时邮箱与更多小工具。",
     href: "https://so.loser.dev/",
     tone: "lime",
-    visual: "terminal",
+    visual: "lock",
     initial: { x: -2.05, y: 1.919, width: 0.371, height: 0.861 },
     radius: "0 0 0 8px",
   },
@@ -83,10 +83,10 @@ const tiles: Tile[] = [
   {
     id: "gallery",
     title: "Gallery",
-    detail: "Gallery-Yan 与随手留下的视觉实验。",
+    detail: "图像、片段与随手留下的视觉实验。",
     href: "https://ovws.github.io/",
     tone: "plum",
-    visual: "landscape",
+    visual: "imagery",
     initial: { x: 0.42, y: 1.239, width: 0.666, height: 0.861 },
   },
   {
@@ -95,7 +95,7 @@ const tiles: Tile[] = [
     detail: "云计算、开源、自托管，还有一点不肯停下来的好奇。",
     href: "https://linktr.ee/qiws",
     tone: "lilac",
-    visual: "curve",
+    visual: "motion",
     initial: { x: 2.675, y: 1.812, width: 0.371, height: 1.075 },
     radius: "0 0 8px 0",
   },
@@ -124,13 +124,10 @@ function lerp(from: number, to: number, amount: number) {
 }
 
 function centerScale(progress: number, baseSize: number, finalSize: number) {
-  if (progress <= 0.4) {
-    return lerp(1, 0.625, smoothstep(progress / 0.4));
+  if (progress <= 0.43) {
+    return lerp(finalSize / baseSize, 0.62, smoothstep(progress / 0.43));
   }
-  if (progress <= 0.77) {
-    return lerp(0.625, 0.49, smoothstep((progress - 0.4) / 0.37));
-  }
-  return lerp(0.49, finalSize / baseSize, smoothstep((progress - 0.77) / 0.23));
+  return lerp(0.62, 1, smoothstep((progress - 0.43) / 0.57));
 }
 
 function createFinalLayout(width: number, height: number) {
@@ -191,21 +188,50 @@ function maximumCenterSize(width: number, height: number, frames: Frame[], gap: 
 function TileVisual({ type }: { type: Tile["visual"] }) {
   switch (type) {
     case "nodes":
-      return <span className="tile-visual visual-nodes" aria-hidden="true"><i /><i /><i /></span>;
+      return (
+        <span className="tile-visual visual-nodes" aria-hidden="true">
+          <svg viewBox="0 0 200 210">
+            <path className="nodes-link" d="M18 44L164 105 18 166" />
+            <rect className="nodes-start" x="6" y="33" width="22" height="22" rx="6" />
+            <rect className="nodes-end" x="6" y="155" width="22" height="22" rx="6" />
+            <rect className="nodes-center" x="153" y="94" width="22" height="22" rx="6" />
+          </svg>
+        </span>
+      );
     case "quote":
       return <span className="tile-visual visual-quote" aria-hidden="true"><i>“</i><i>”</i></span>;
     case "monogram":
       return <span className="tile-visual visual-monogram" aria-hidden="true"><i>OV</i><i>WS</i></span>;
     case "type":
-      return <span className="tile-visual visual-type" aria-hidden="true"><i>字</i><span>Aa</span></span>;
-    case "terminal":
-      return <span className="tile-visual visual-terminal" aria-hidden="true"><i>&gt;_</i></span>;
+      return <span className="tile-visual visual-type" aria-hidden="true"><i>A</i><span>a</span></span>;
+    case "lock":
+      return <span className="tile-visual visual-lock" aria-hidden="true"><i /><b /></span>;
     case "blocks":
       return <span className="tile-visual visual-blocks" aria-hidden="true"><i /><i /></span>;
-    case "landscape":
-      return <span className="tile-visual visual-landscape" aria-hidden="true"><i /><b /></span>;
-    case "curve":
-      return <span className="tile-visual visual-curve" aria-hidden="true"><i /><i /><b /></span>;
+    case "imagery":
+      return (
+        <span className="tile-visual visual-imagery" aria-hidden="true">
+          <span className="imagery-picture">
+            <svg className="imagery-landscape" viewBox="0 0 300 180" preserveAspectRatio="none">
+              <circle className="imagery-sun" cx="150" cy="48" r="17" />
+              <path className="imagery-horizon" d="M0 131C39 105 70 123 105 143C151 170 186 106 232 81C259 65 282 73 300 95V180H0Z" />
+              <path className="imagery-front" d="M0 150C45 132 87 145 126 159C171 176 215 142 255 127C275 119 289 119 300 123V180H0Z" />
+            </svg>
+          </span>
+        </span>
+      );
+    case "motion":
+      return (
+        <span className="tile-visual visual-motion" aria-hidden="true">
+          <i className="motion-node motion-node-start" /><i className="motion-node motion-node-start-handle" />
+          <i className="motion-node motion-node-end" /><i className="motion-node motion-node-end-handle" />
+          <b className="motion-tangent motion-tangent-start" /><b className="motion-tangent motion-tangent-end" />
+          <svg viewBox="0 0 200 230">
+            <path className="motion-path-rest" d="M10 214C62 214 100 22 190 18" />
+            <path className="motion-path-active" d="M10 214C70 214 108 50 190 18" />
+          </svg>
+        </span>
+      );
   }
 }
 
@@ -216,9 +242,7 @@ export default function Home() {
   const centerRef = useRef<HTMLDivElement>(null);
   const identityRef = useRef<HTMLSpanElement>(null);
   const introRef = useRef<HTMLSpanElement>(null);
-  const middleRef = useRef<HTMLSpanElement>(null);
   const markRef = useRef<HTMLSpanElement>(null);
-  const chevronsRef = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
     let animationFrame = 0;
@@ -242,10 +266,10 @@ export default function Home() {
 
         const finalFrame = layout.frames[tile.id];
         const currentFrame: Frame = {
-          x: lerp(tile.initial.x * width, finalFrame.x, amount),
-          y: lerp(tile.initial.y * height, finalFrame.y, amount),
-          width: lerp(tile.initial.width * width, finalFrame.width, amount),
-          height: lerp(tile.initial.height * height, finalFrame.height, amount),
+          x: lerp(finalFrame.x, tile.initial.x * width, amount),
+          y: lerp(finalFrame.y, tile.initial.y * height, amount),
+          width: lerp(finalFrame.width, tile.initial.width * width, amount),
+          height: lerp(finalFrame.height, tile.initial.height * height, amount),
         };
         movingFrames.push(currentFrame);
 
@@ -256,20 +280,23 @@ export default function Home() {
         }
 
         element.style.transform = `translate3d(${currentFrame.x.toFixed(3)}px, ${currentFrame.y.toFixed(3)}px, 0) scale3d(${(currentFrame.width / finalFrame.width).toFixed(5)}, ${(currentFrame.height / finalFrame.height).toFixed(5)}, 1)`;
-        element.style.pointerEvents = progress > 0.72 ? "auto" : "none";
-        const componentProgress = smoothstep(clamp((progress - 0.54) / 0.36));
+        element.style.pointerEvents = progress < 0.15 ? "auto" : "none";
+        const componentProgress = 1 - smoothstep(clamp((progress - 0.04) / 0.34));
         const componentOffset = (1 - componentProgress) * 28;
         const componentTilt = (1 - componentProgress) * 12;
         element.style.setProperty("--component-progress", componentProgress.toFixed(4));
         element.style.setProperty("--component-opacity", clamp((componentProgress - 0.08) / 0.92).toFixed(4));
         element.style.setProperty("--component-offset", `${componentOffset.toFixed(2)}px`);
         element.style.setProperty("--component-offset-negative", `${(-componentOffset).toFixed(2)}px`);
+        element.style.setProperty("--component-offset-soft", `${(componentOffset * 0.46).toFixed(2)}px`);
+        element.style.setProperty("--component-offset-far", `${(componentOffset * 1.18).toFixed(2)}px`);
         element.style.setProperty("--component-tilt", `${componentTilt.toFixed(2)}deg`);
         element.style.setProperty("--component-tilt-negative", `${(-componentTilt).toFixed(2)}deg`);
+        element.style.setProperty("--component-tilt-soft", `${(componentTilt * 0.42).toFixed(2)}deg`);
         element.style.setProperty("--component-scale", `${(0.9 + componentProgress * 0.1).toFixed(4)}`);
         element.style.setProperty("--component-pop", componentProgress.toFixed(4));
         element.classList.toggle("is-arriving", componentProgress >= 0.03);
-        element.classList.toggle("is-settled", progress >= 0.88);
+        element.classList.toggle("is-settled", progress <= 0.15);
       });
 
       const baseSize = Math.min(
@@ -290,29 +317,26 @@ export default function Home() {
 
         center.style.transform = `translate3d(${((width - baseSize) / 2).toFixed(3)}px, ${((height - baseSize) / 2).toFixed(3)}px, 0) scale(${scale.toFixed(5)})`;
         center.style.opacity = "1";
-        const isBlue = progress > 0.46;
-        center.classList.toggle("is-blue", isBlue);
-        center.classList.toggle("is-paper", !isBlue);
+        center.classList.add("is-blue");
+        center.classList.remove("is-paper");
       }
 
-      const introOpacity = clamp(1 - progress / 0.42);
-      const middleOpacity = clamp((progress - 0.45) / 0.12) * clamp((0.78 - progress) / 0.16);
-      const markOpacity = clamp((progress - 0.65) / 0.16);
+      const contentProgress = smoothstep(clamp((progress - 0.56) / 0.32));
+      const introOpacity = smoothstep(clamp((progress - 0.64) / 0.26));
+      const markScale = lerp(1, 0.4, contentProgress);
 
       if (identityRef.current) {
-        identityRef.current.style.opacity = `${introOpacity}`;
-        identityRef.current.style.transform = `translateY(${lerp(0, -8, clamp(progress / 0.42))}px)`;
+        identityRef.current.style.opacity = `${contentProgress}`;
+        identityRef.current.style.transform = `translateY(${lerp(18, 0, contentProgress)}px)`;
       }
       if (introRef.current) {
         introRef.current.style.opacity = `${introOpacity}`;
-        introRef.current.style.transform = `translateY(${lerp(0, -12, clamp(progress / 0.42))}px)`;
+        introRef.current.style.transform = `translateY(${lerp(24, 0, introOpacity)}px)`;
       }
-      if (middleRef.current) {
-        middleRef.current.style.opacity = `${middleOpacity}`;
-        middleRef.current.style.transform = `scale(${lerp(0.92, 1, clamp((progress - 0.45) / 0.12))})`;
+      if (markRef.current) {
+        markRef.current.style.opacity = "1";
+        markRef.current.style.transform = `scale(${markScale.toFixed(4)})`;
       }
-      if (markRef.current) markRef.current.style.opacity = `${markOpacity}`;
-      if (chevronsRef.current) chevronsRef.current.style.opacity = `${introOpacity}`;
 
       previousWidth = width;
       previousHeight = height;
@@ -340,12 +364,10 @@ export default function Home() {
     <main className="drop-page">
       <section className="scroll-runway" aria-label="OVWS 个人主页">
         <div className="brand-scene" ref={sceneRef}>
-          <div className="blueprint-grid" aria-hidden="true" />
-
           <div className="tile-field" aria-label="个人目录">
             {tiles.map((tile) => (
               <a
-                className={`scene-tile tile-${tile.tone}`}
+                className={`scene-tile tile-${tile.tone} tile-${tile.id}`}
                 href={tile.href}
                 key={tile.id}
                 ref={(element) => {
@@ -368,7 +390,7 @@ export default function Home() {
 
           <div
             aria-label="OVWS 个人主页标识"
-            className="center-tile is-paper"
+            className="center-tile is-blue"
             ref={centerRef}
             role="img"
           >
@@ -376,23 +398,12 @@ export default function Home() {
               <strong>文山木公</strong><em>QI WENSONG</em>
             </span>
             <span className="center-intro" ref={introRef}>
-              云计算与开源折腾者，喜欢把好奇做成顺手的工具；偶尔写字，也持续搭建自己的小系统。
-            </span>
-            <span className="center-middle" ref={middleRef}>
-              在云端、开源和<br />自托管里持续搭建。
+              从云计算到小工具，从笔记到自托管；这些片段组成了文山木公持续折腾的个人系统。
             </span>
             <span className="center-mark" ref={markRef}>
               OVWS<span>.</span>
             </span>
-            <span className="scroll-chevrons" aria-hidden="true" ref={chevronsRef}><i /><i /></span>
           </div>
-
-          <p className="profile-trigger" aria-hidden="true">
-            <span>SCROLL</span>
-            <span>TO EXPLORE</span>
-          </p>
-
-          <p className="scene-index" aria-hidden="true">QI WENSONG / DROP PAGE / 2026</p>
 
           <button
             aria-label="关闭个人档案"
