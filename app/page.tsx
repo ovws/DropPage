@@ -8,10 +8,10 @@ type Tile = { id: TileId; label: string; href?: string; className: string; drift
 /* The exact eight-tile ordering and movement vectors used by brand.dropbox.com. */
 const tiles: Tile[] = [
   { id: "framework", label: "About", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
-  { id: "voice", label: "Writing", href: "https://home.mugou.pro/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
+  { id: "voice", label: "Writing", href: "https://www.qiwensong.com/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
   { id: "logo", label: "GitHub", href: "https://github.com/ovws", className: "logo", drift: [-1, -0.1], mobileDrift: [0.25, 1.5] },
   { id: "type", label: "Blog", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
-  { id: "icon", label: "Search", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
+  { id: "icon", label: "Tools", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
   { id: "colour", label: "Loser.dev", href: "https://www.loser.dev/", className: "color", drift: [1, 0.1], mobileDrift: [-0.25, -1.5] },
   { id: "imagery", label: "Projects", href: "https://ovws.github.io/", className: "imagery", drift: [0.1, -1], mobileDrift: [2, -3] },
   { id: "motion", label: "Links", href: "https://linktr.ee/qiws", className: "motion", drift: [-4, -2], mobileDrift: [-2, -3] },
@@ -60,7 +60,7 @@ function TileVisual({ id }: { id: TileId }) {
   if (id === "icon") return <span className="tile-visual lock-visual" aria-hidden="true"><svg viewBox="0 0 102 142"><g className="lock-shackle"><path d="M28 60V39c0-19 8.6-29 23-29s23 10 23 29v21" fill="none" stroke="currentColor" strokeWidth="13" /></g><path className="lock-body" d="M10 54h82c6 0 10 4 10 10v47c0 10-3 18-8.5 23.5C88 140 81 142 70 142H32c-11 0-18-2-24-7.5C2.5 129 0 121 0 111V64c0-6 4-10 10-10Z" /><path className="lock-keyhole" d="M44.5 116h13v-15.3c5.6-2.3 9-7.4 9-13.1 0-8.7-6.9-15.6-15.5-15.6S35.5 79 35.5 87.6c0 5.7 3.5 10.8 9 13.1V116Z" /></svg></span>;
   if (id === "colour") return <span className="tile-visual colour-visual" aria-hidden="true"><i><b /></i><i><b /></i></span>;
   if (id === "imagery") return <span className="tile-visual imagery-visual" aria-hidden="true"><span className="picture"><svg className="hills" viewBox="0 0 250 150"><path d="M39 64.6C16.4 64.6 0 83.9 0 83.9V150H250V34.3S229 0 202.6 0c-47.6 0-66.2 87.9-102.6 87.9-23 0-36-23.3-61-23.3Z" /></svg><span className="sun-moon"><svg className="sun" viewBox="-2 -2 44 44"><circle cx="20" cy="20" r="20" /></svg><svg className="moon" viewBox="-2 -2 44 44"><path d="M37.789 27.858C37.789 27.858 25.448 32.757 15.62 22.52 5.793 12.282 11.374.765 11.374.765A20.1 20.1 0 0 0 6.034 4.574c-7.75 7.75-7.727 20.34.052 28.12 7.78 7.78 20.37 7.803 28.12.052a20.07 20.07 0 0 0 3.583-4.888Z" /></svg></span></span></span>;
-  return <span className="tile-visual motion-visual" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 75C30 75 60 25 100 25" /></svg><i className="point one" /><i className="point two" /><i className="point three" /><i className="point four" /><b className="tangent one" /><b className="tangent two" /></span>;
+  return <span className="tile-visual motion-visual" aria-hidden="true"><svg className="motion-face" viewBox="0 0 160 160"><circle className="mood-orbit" cx="80" cy="82" r="56" /><g className="mood-sad-eyes"><circle cx="56" cy="72" r="6" /><circle cx="104" cy="72" r="6" /></g><g className="mood-happy-eyes"><path d="M44 74Q56 61 68 74" /><path d="M92 74Q104 61 116 74" /></g><path className="mood-mouth mood-frown" d="M46 119Q80 91 114 119" /><path className="mood-mouth mood-smile" d="M45 108Q80 139 115 108" /><circle className="mood-cheek mood-cheek-left" cx="43" cy="100" r="4.5" /><circle className="mood-cheek mood-cheek-right" cx="117" cy="100" r="4.5" /></svg></span>;
 }
 
 export default function Home() {
@@ -193,15 +193,14 @@ export default function Home() {
             <button aria-label="关闭个人简介" className="about-close" onClick={() => setAboutOpen(false)} tabIndex={aboutOpen ? 0 : -1} type="button">×</button>
             <span className="about-kicker">ABOUT / 01</span>
             <h2 id="about-title">文山木公<br />QI WENSONG</h2>
-            <p>平时做云端基础设施与平台架构，喜欢把日常的麻烦做成顺手的小工具。</p>
+            <p>做云端基础设施与平台架构，也把日常的麻烦做成顺手的小工具。</p>
             <dl className="about-details">
               <div><dt>工作</dt><dd>云端基础设施与平台架构</dd></div>
               <div><dt>邮箱</dt><dd><a href="mailto:work@qiwensong.com">work@qiwensong.com</a></dd></div>
-              <div><dt>YouTube</dt><dd><a href="https://www.youtube.com/@aixuer" rel="noreferrer" target="_blank">文山木公 ↗</a></dd></div>
               <div><dt>联系</dt><dd><a href="https://linktr.ee/qiws" rel="noreferrer" target="_blank">linktr.ee/qiws ↗</a></dd></div>
               <div><dt>GitHub</dt><dd><a href="https://github.com/ovws" rel="noreferrer" target="_blank">github.com/ovws ↗</a></dd></div>
               <div><dt>X / Twitter</dt><dd><a href="https://x.com/wensqi" rel="noreferrer" target="_blank">@wensqi ↗</a></dd></div>
-              <div><dt>Links</dt><dd><a href="https://linktr.ee/qiws" rel="noreferrer" target="_blank">文山木公 ↗</a></dd></div>
+              <div><dt>YouTube</dt><dd><span>频道整理中</span></dd></div>
             </dl>
           </aside>
         </div>
