@@ -113,7 +113,7 @@ export default function Home() {
       const availableSize = Math.max(0, Math.min(window.innerWidth, window.innerHeight) - inset);
       const initialSize = Math.min(800, availableSize);
       const blueSize = Math.min(500, availableSize);
-      const buttonSize = window.innerWidth <= 991 ? 70 : 102;
+      const buttonSize = window.innerWidth <= 991 ? 70 : 90;
       const introProgress = smoothstep(clamp(progress / secondBreakpoint));
       const shrinkProgress = clamp((progress - secondBreakpoint) / Math.max(.001, 1 - secondBreakpoint));
       const copyFade = smoothstep(clamp(shrinkProgress / .08));
