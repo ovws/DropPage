@@ -63,7 +63,7 @@ a { color: inherit; text-decoration: none; }
 .nav-tile-4 { height: calc(50% - var(--button-size)/2 - var(--gap)*2); right: var(--gap); top: var(--gap); transform-origin: 0 100%; width: calc(20% - var(--gap)*2); }
 .nav-tile-8 { bottom: var(--gap); height: calc(50% + var(--button-size)/2 - var(--gap)); right: var(--gap); transform-origin: 0 0; width: calc(20% - var(--gap)*2); }
 
-.strategy { background: #283750; border-radius: 8px 0 0; color: #b4c8e1; }
+.strategy { background: #283750; border-radius: 8px 0 0; color: #b4c8e1; gap: 32px; }
 .voice-tone { background: #fad24b; color: #684505; }
 .logo { background: #3dd3ee; color: #055463; }
 .typography { background: #fa551e; border-radius: 0 8px 0 0; color: #4e0119; }
@@ -77,13 +77,23 @@ a { color: inherit; text-decoration: none; }
 .nav:not(.is-live) .tile, .nav:not(.is-live) .grid-layer { visibility: hidden; }
 .tile-visual { bottom: 7%; display: block; pointer-events: none; position: absolute; right: 8%; }
 
-.strategy-visual { bottom: 7%; height: 49%; left: 8%; right: 8%; }
-.strategy-visual svg { height: 100%; overflow: visible; width: 100%; }
-.strategy-visual path { fill: none; stroke: currentColor; stroke-width: 2; transition: opacity .3s cubic-bezier(.4,0,.2,1); }
-.strategy-visual .dot { background: currentColor; border-radius: 5px; height: 20px; position: absolute; transition: transform .35s cubic-bezier(.4,0,.2,1); width: 20px; }
-.strategy-visual .one { left: 0; top: 20%; }
-.strategy-visual .two { bottom: 20%; left: 0; }
-.strategy-visual .three { right: 0; top: 46%; }
+.strategy-visual { align-self: stretch; bottom: auto; display: flex; flex: 1 1 auto; left: auto; min-height: 0; position: relative; right: auto; }
+.strategy-visual-square { aspect-ratio: 1; bottom: 0; left: 0; position: absolute; width: 100%; }
+.strategy-bezier { bottom: 8px; left: 10px; position: absolute; right: 10px; top: 8px; }
+.strategy-bezier-embed { bottom: calc(-50% + 4px); left: 0; position: absolute; right: 0; top: calc(-50% + 4px); }
+.strategy-bezier-path { display: block; height: 100%; overflow: hidden; width: 100%; }
+.strategy-bezier-path path { fill: none; stroke: #b4c8e1; stroke-width: 2; transition: opacity .3s cubic-bezier(.4,0,.2,1); }
+.strategy-point { fill: #b4c8e1; height: 20px; position: absolute; stroke: #b4c8e1; stroke-width: 2px; transition: fill .35s cubic-bezier(.4,0,.2,1), stroke .35s cubic-bezier(.4,0,.2,1); width: 20px; z-index: 2; }
+.strategy-point path { vector-effect: non-scaling-stroke; }
+.strategy-point.point-one { left: 0; top: 0; }
+.strategy-point.point-two { right: 0; top: calc(50% - 10px); }
+.strategy-point.point-three { bottom: 0; left: 0; }
+.strategy-sketch { position: absolute; }
+.strategy-sketch-one { height: 56.1875%; left: 10.066%; top: -10%; width: 87.793%; }
+.strategy-sketch-two { height: 47.474%; left: -.28%; top: 43%; width: 91.637%; }
+.strategy-sketch-path { display: block; fill: none; height: 100%; overflow: visible; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: clamp(1.5px,calc(4.5px - min(.2vw,.2vh)),5px); width: 100%; }
+.strategy-sketch-one path { opacity: 0; stroke-dasharray: 433; stroke-dashoffset: 433; transition: stroke-dashoffset .2s cubic-bezier(.2,.1,0,1), opacity .4s cubic-bezier(.2,.1,0,1); }
+.strategy-sketch-two path { opacity: 0; stroke-dasharray: 321; stroke-dashoffset: 321; transition: stroke-dashoffset .2s cubic-bezier(.2,.1,0,1), opacity .4s cubic-bezier(.2,.1,0,1); }
 
 .quote-visual { bottom: 3%; display: flex; font-family: Georgia, serif; font-size: clamp(8rem,14vw,13rem); font-weight: 700; justify-content: space-between; left: 9%; letter-spacing: -.18em; line-height: .64; right: 11%; }
 .quote-visual i { font-style: normal; transition: transform .35s cubic-bezier(.4,0,.2,1); }
@@ -165,10 +175,10 @@ a { color: inherit; text-decoration: none; }
 
 @media (any-hover:hover) {
   .tile:hover { --icon-cutout: #1a1918; background: #1a1918 !important; color: white !important; }
-  .tile:hover .strategy-visual path { opacity: 0; }
-  .tile:hover .strategy-visual .one { transform: translate(14px,8px); }
-  .tile:hover .strategy-visual .two { transform: translate(14px,-8px); }
-  .tile:hover .strategy-visual .three { transform: translate(-14px); }
+  .tile:hover .strategy-bezier-path path { opacity: 0; }
+  .tile:hover .strategy-point { fill: #1a1918; stroke: #fff; }
+  .tile:hover .strategy-sketch-one path { opacity: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .75s cubic-bezier(.5,0,.3,1), opacity .4s cubic-bezier(.2,.1,0,1); }
+  .tile:hover .strategy-sketch-two path { opacity: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .7s cubic-bezier(.2,.1,0,1) .3s, opacity .4s cubic-bezier(.2,.1,0,1); }
   .tile:hover .quote-visual i:first-child { transform: translate(8px,8px) scale(.96); }
   .tile:hover .quote-visual i:last-child { transform: translate(-8px,-8px) scale(1.04); }
   .tile:hover .logo-visual .ovws-mark { filter: grayscale(1) brightness(0) invert(1); transform: rotate(180deg) scale(1.06); }
