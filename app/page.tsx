@@ -193,14 +193,14 @@ export default function Home() {
             <button aria-label="关闭个人简介" className="about-close" onClick={() => setAboutOpen(false)} tabIndex={aboutOpen ? 0 : -1} type="button">×</button>
             <span className="about-kicker">ABOUT / 01</span>
             <h2 id="about-title">文山木公<br />QI WENSONG</h2>
-            <p>做云端基础设施与平台架构，也把日常的麻烦做成顺手的小工具。</p>
+            <p>平时做云端基础设施与平台架构，喜欢把日常的麻烦做成顺手的小工具。</p>
             <dl className="about-details">
               <div><dt>工作</dt><dd>云端基础设施与平台架构</dd></div>
               <div><dt>邮箱</dt><dd><a href="mailto:work@qiwensong.com">work@qiwensong.com</a></dd></div>
+              <div><dt>YouTube</dt><dd><a href="https://www.youtube.com/@aixuer" rel="noreferrer" target="_blank">文山木公 ↗</a></dd></div>
               <div><dt>联系</dt><dd><a href="https://linktr.ee/qiws" rel="noreferrer" target="_blank">linktr.ee/qiws ↗</a></dd></div>
               <div><dt>GitHub</dt><dd><a href="https://github.com/ovws" rel="noreferrer" target="_blank">github.com/ovws ↗</a></dd></div>
               <div><dt>X / Twitter</dt><dd><a href="https://x.com/wensqi" rel="noreferrer" target="_blank">@wensqi ↗</a></dd></div>
-              <div><dt>YouTube</dt><dd><span>频道整理中</span></dd></div>
             </dl>
           </aside>
         </div>
