@@ -1,14 +1,14 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 type TileId = "framework" | "voice" | "logo" | "type" | "icon" | "colour" | "imagery" | "motion";
-type Tile = { id: TileId; label: string; href: string; className: string; drift: [number, number]; mobileDrift: [number, number] };
+type Tile = { id: TileId; label: string; href?: string; className: string; drift: [number, number]; mobileDrift: [number, number] };
 
 /* The exact eight-tile ordering and movement vectors used by brand.dropbox.com. */
 const tiles: Tile[] = [
-  { id: "framework", label: "About", href: "https://www.qiwensong.com/", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
-  { id: "voice", label: "Writing", href: "https://ink.loser.dev/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
+  { id: "framework", label: "About", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
+  { id: "voice", label: "Writing", href: "https://www.qiwensong.com/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
   { id: "logo", label: "GitHub", href: "https://github.com/ovws", className: "logo", drift: [-1, -0.1], mobileDrift: [0.25, 1.5] },
   { id: "type", label: "Blog", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
   { id: "icon", label: "Tools", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
@@ -40,10 +40,7 @@ function cubicBezier(x1: number, y1: number, x2: number, y2: number) {
 const ease = cubicBezier(1, 0.25, 0.85, 1);
 
 function OvwsMark({ className = "" }: { className?: string }) {
-  return <svg className={`ovws-mark ${className}`} aria-hidden="true" viewBox="0 0 64 54">
-    <path fillRule="evenodd" d="M15 2C6.7 2 2 8.4 2 18s4.7 16 13 16 13-6.4 13-16S23.3 2 15 2Zm0 8c3.3 0 5 3.2 5 8s-1.7 8-5 8-5-3.2-5-8 1.7-8 5-8Z" clipRule="evenodd" />
-    <path d="M31 3h8.6l8.2 23L56 3h8L51.4 36h-7.8L31 3Z" />
-  </svg>;
+  return <img className={`ovws-mark ${className}`} alt="" aria-hidden="true" src="/ovws-mark.png" />;
 }
 
 function TileVisual({ id }: { id: TileId }) {
@@ -58,13 +55,23 @@ function TileVisual({ id }: { id: TileId }) {
 }
 
 export default function Home() {
-  const tileRefs = useRef(new Map<TileId, HTMLAnchorElement>());
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const tileRefs = useRef(new Map<TileId, HTMLElement>());
   const gridRefs = useRef(new Map<TileId, HTMLDivElement>());
   const navRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const initialCopyRef = useRef<HTMLDivElement>(null);
   const blueCopyRef = useRef<HTMLDivElement>(null);
   const chevronsRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!aboutOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setAboutOpen(false);
+    };
+    addEventListener("keydown", closeOnEscape);
+    return () => removeEventListener("keydown", closeOnEscape);
+  }, [aboutOpen]);
 
   useLayoutEffect(() => {
     let frame = 0;
@@ -155,7 +162,13 @@ export default function Home() {
     <section className="home" aria-label="文山木公的个人主页">
       <div className="nav-container">
         <nav className="nav" aria-label="个人目录" ref={navRef}>
-          {tiles.map((tile, index) => <a className={`nav-tile nav-tile-${index + 1} tile ${tile.className}`} href={tile.href} key={tile.id} ref={(node) => { if (node) tileRefs.current.set(tile.id, node); else tileRefs.current.delete(tile.id); }} rel="noreferrer" target="_blank"><span className="tile-title">{tile.label}</span><TileVisual id={tile.id} /></a>)}
+          {tiles.map((tile, index) => tile.id === "framework" ? (
+            <button aria-expanded={aboutOpen} aria-haspopup="dialog" className={`nav-tile nav-tile-${index + 1} tile tile-button ${tile.className}`} key={tile.id} onClick={() => setAboutOpen(true)} ref={(node) => { if (node) tileRefs.current.set(tile.id, node); else tileRefs.current.delete(tile.id); }} type="button">
+              <span className="tile-title">{tile.label}</span><TileVisual id={tile.id} />
+            </button>
+          ) : (
+            <a className={`nav-tile nav-tile-${index + 1} tile ${tile.className}`} href={tile.href} key={tile.id} ref={(node) => { if (node) tileRefs.current.set(tile.id, node); else tileRefs.current.delete(tile.id); }} rel="noreferrer" target="_blank"><span className="tile-title">{tile.label}</span><TileVisual id={tile.id} /></a>
+          ))}
           <div className="grid-layer" aria-hidden="true">{tiles.map((tile, index) => <div className={`nav-tile nav-tile-${index + 1} grid-tile`} key={tile.id} ref={(node) => { if (node) gridRefs.current.set(tile.id, node); else gridRefs.current.delete(tile.id); }} />)}</div>
         </nav>
         <div className="menu-card" ref={menuRef}>
@@ -165,6 +178,21 @@ export default function Home() {
         </div>
         <span className="site-credit">QI WENSONG / DROP PAGE / 2026</span>
         <span className="site-chevrons" aria-hidden="true" ref={chevronsRef}><i /><i /></span>
+        <div aria-hidden={!aboutOpen} className={`about-panel${aboutOpen ? " is-open" : ""}`}>
+          <button aria-label="关闭个人简介" className="about-backdrop" onClick={() => setAboutOpen(false)} tabIndex={aboutOpen ? 0 : -1} type="button" />
+          <aside aria-labelledby="about-title" aria-modal="true" className="about-sheet" role="dialog">
+            <button aria-label="关闭个人简介" className="about-close" onClick={() => setAboutOpen(false)} tabIndex={aboutOpen ? 0 : -1} type="button">×</button>
+            <span className="about-kicker">ABOUT / 01</span>
+            <h2 id="about-title">文山木公<br />QI WENSONG</h2>
+            <p>在云计算、开源与自托管里慢慢折腾，把喜欢的事做成自己的工具。</p>
+            <dl className="about-details">
+              <div><dt>工作</dt><dd>商品运营 · 个人工具与自托管爱好者</dd></div>
+              <div><dt>邮箱</dt><dd><a href="mailto:qwstdx@gmail.com">qwstdx@gmail.com</a></dd></div>
+              <div><dt>联系</dt><dd><a href="https://linktr.ee/qiws" rel="noreferrer" target="_blank">linktr.ee/qiws ↗</a></dd></div>
+              <div><dt>GitHub</dt><dd><a href="https://github.com/ovws" rel="noreferrer" target="_blank">github.com/ovws ↗</a></dd></div>
+            </dl>
+          </aside>
+        </div>
       </div>
     </section>
   </main>;
