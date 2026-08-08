@@ -172,8 +172,8 @@ export default function Home() {
           <div className="grid-layer" aria-hidden="true">{tiles.map((tile, index) => <div className={`nav-tile nav-tile-${index + 1} grid-tile`} key={tile.id} ref={(node) => { if (node) gridRefs.current.set(tile.id, node); else gridRefs.current.delete(tile.id); }} />)}</div>
         </nav>
         <div className="menu-card" ref={menuRef}>
-          <div className="menu-copy initial-copy" ref={initialCopyRef}><span>文山木公 / QI WENSONG</span><h1>我把喜欢的事，<br />做成自己的工具。</h1><p>好奇、耐心，也有一点较真；把好玩的东西做成可用工具，在云、开源与自托管里慢慢折腾。</p></div>
-          <div className="menu-copy blue-copy" ref={blueCopyRef}><h2>从云计算到开源工具，<br />我把好奇心变成能用的日常。</h2></div>
+          <div className="menu-copy initial-copy" ref={initialCopyRef}><span>文山木公 / QI WENSONG</span><h1>我把喜欢的事，<br />做成自己的工具。</h1><p>好奇、耐心，也有一点较真；喜欢把日常的麻烦，做成顺手的小工具。</p></div>
+          <div className="menu-copy blue-copy" ref={blueCopyRef}><h2>从云端架构到个人工具，<br />一直做点有用的东西。</h2></div>
           <OvwsMark className="center-menu-mark" />
         </div>
         <span className="site-credit">QI WENSONG / DROP PAGE / 2026</span>
@@ -184,12 +184,14 @@ export default function Home() {
             <button aria-label="关闭个人简介" className="about-close" onClick={() => setAboutOpen(false)} tabIndex={aboutOpen ? 0 : -1} type="button">×</button>
             <span className="about-kicker">ABOUT / 01</span>
             <h2 id="about-title">文山木公<br />QI WENSONG</h2>
-            <p>在云计算、开源与自托管里慢慢折腾，把喜欢的事做成自己的工具。</p>
+            <p>做云端基础设施与平台架构，也把日常的麻烦做成顺手的小工具。</p>
             <dl className="about-details">
-              <div><dt>工作</dt><dd>商品运营 · 个人工具与自托管爱好者</dd></div>
-              <div><dt>邮箱</dt><dd><a href="mailto:qwstdx@gmail.com">qwstdx@gmail.com</a></dd></div>
+              <div><dt>工作</dt><dd>云端基础设施与平台架构</dd></div>
+              <div><dt>邮箱</dt><dd><a href="mailto:work@qiwensong.com">work@qiwensong.com</a></dd></div>
               <div><dt>联系</dt><dd><a href="https://linktr.ee/qiws" rel="noreferrer" target="_blank">linktr.ee/qiws ↗</a></dd></div>
               <div><dt>GitHub</dt><dd><a href="https://github.com/ovws" rel="noreferrer" target="_blank">github.com/ovws ↗</a></dd></div>
+              <div><dt>X / Twitter</dt><dd><a href="https://x.com/wensqi" rel="noreferrer" target="_blank">@wensqi ↗</a></dd></div>
+              <div><dt>YouTube</dt><dd><span>频道整理中</span></dd></div>
             </dl>
           </aside>
         </div>
