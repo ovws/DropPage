@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --button-size: 102px;
+  --button-size: 90px;
   --gap: 10px;
   --blue: #0061fe;
   --line: #5f9dff;
@@ -9,7 +9,8 @@
 }
 
 * { box-sizing: border-box; }
-html, body { background: #fff; margin: 0; overscroll-behavior: none; }
+html, body { background: #fff; margin: 0; overscroll-behavior: none; scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 body { overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 .drop-page { color: #1e1919; font-family: var(--font); }
@@ -44,9 +45,9 @@ a { color: inherit; text-decoration: none; }
 .tile-button { appearance: none; border: 0; cursor: pointer; font: inherit; text-align: left; width: auto; }
 .tile-title {
   font-size: clamp(1.28rem, 2.3vw, 2.1rem);
-  font-weight: 730;
-  letter-spacing: -.08em;
-  line-height: .94;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: .8;
   pointer-events: none;
   position: relative;
   z-index: 2;
@@ -68,7 +69,7 @@ a { color: inherit; text-decoration: none; }
 .typography { background: #fa551e; border-radius: 0 8px 0 0; color: #4e0119; }
 .iconography { --icon-cutout: #b4dc19; background: #b4dc19; border-radius: 0 0 0 8px; color: #175641; }
 .color { background: #ff8c19; color: #6d2e09; }
-.imagery { background: #78286e; color: #ffafa5; }
+.imagery { background: #892055; color: #ffafa5; }
 .motion { background: #c8aff0; border-radius: 0 0 8px; color: #682760; }
 
 .grid-layer { inset: 0; opacity: .4; pointer-events: none; position: absolute; z-index: 1; }
@@ -101,20 +102,22 @@ a { color: inherit; text-decoration: none; }
 .lock-keyhole { fill: var(--icon-cutout); transition: fill .35s cubic-bezier(.4,0,.2,1); }
 .lock-shackle { transform-box: fill-box; transform-origin: 0% 100%; transition: transform .42s cubic-bezier(.34,1.35,.58,1); }
 
-.colour-visual { aspect-ratio: 1; bottom: 6%; height: auto; right: 9%; width: min(58%,220px); }
-.colour-visual > i { aspect-ratio: 1; background: #be4b0a; height: auto; position: absolute; transition: background-color .28s ease, border-color .28s ease, transform .46s cubic-bezier(.16,1,.3,1); width: 49%; }
+.colour-visual { aspect-ratio: 1; bottom: 23px; height: min(20vh,calc(100% - 78px)); right: 23px; width: auto; }
+.colour-visual > i { aspect-ratio: 1; background: #be4b0a; border: 2px solid transparent; height: auto; position: absolute; transition: background-color .35s cubic-bezier(.4,0,.2,1), border-color .35s cubic-bezier(.4,0,.2,1), transform .35s cubic-bezier(.4,0,.2,1); width: 50%; }
 .colour-visual > i:first-child { left: 0; top: 0; }
 .colour-visual > i:last-child { background: #6d2e09; bottom: 0; right: 0; }
-.colour-visual b { background: #6d2e09; border-radius: 50%; inset: 23%; position: absolute; }
+.colour-visual b { background: #6d2e09; border-radius: 50%; inset: 16.667%; position: absolute; }
 .colour-visual > i:last-child b { background: #be4b0a; }
 
-.imagery-visual { aspect-ratio: 5 / 3; bottom: 6%; height: auto; right: 7%; width: min(64%,300px); }
-.imagery-visual .picture { background: #ffafa5; display: block; height: 100%; overflow: hidden; position: relative; transition: background-color .35s cubic-bezier(.4,0,.2,1), border-color .35s cubic-bezier(.4,0,.2,1); width: 100%; }
-.hills { bottom: -2%; fill: #cd2f7b; height: 79%; left: -2%; position: absolute; transition: fill .35s cubic-bezier(.4,0,.2,1), stroke .35s cubic-bezier(.4,0,.2,1); width: 104%; }
-.sun-moon { aspect-ratio: 1; display: block; height: 74%; left: 17%; position: absolute; top: 17%; transform: rotate(0); transform-origin: 50% 50%; transition: transform .65s cubic-bezier(.16,1,.3,1); }
-.sun-moon i, .sun-moon b { background: #cd2f7b; border-radius: 50%; display: block; height: 29%; left: 35.5%; position: absolute; transition: background-color .28s ease, border-color .28s ease, opacity .24s ease, transform .35s cubic-bezier(.16,1,.3,1); width: 29%; }
-.sun-moon i { top: 0; }
-.sun-moon b { bottom: 0; opacity: 0; transform: scale(.72); }
+.imagery-visual { aspect-ratio: 5 / 4; bottom: 23px; height: min(20vh,calc(100% - 78px)); right: 23px; width: auto; }
+.imagery-visual .picture { background: #ffafa5; display: block; height: 100%; overflow: hidden; position: relative; transition: background-color .35s cubic-bezier(.4,0,.2,1); width: 100%; }
+.imagery-visual .picture:after { border: 2px solid #fff; content: ""; inset: 0; opacity: 0; pointer-events: none; position: absolute; transition: opacity .35s cubic-bezier(.4,0,.2,1); z-index: 4; }
+.hills { bottom: -4px; fill: #cd2f7b; height: calc(75% + 4px); left: -4px; position: absolute; stroke: transparent; stroke-width: 2px; transition: fill .35s cubic-bezier(.4,0,.2,1), stroke .35s cubic-bezier(.4,0,.2,1); width: calc(100% + 8px); z-index: 2; }
+.hills path, .sun-moon circle, .sun-moon path { vector-effect: non-scaling-stroke; }
+.sun-moon { aspect-ratio: 1; display: block; height: 70%; left: 17%; position: absolute; top: 25%; transform: rotate(-25deg); transform-origin: 50% 50%; transition: transform .7s cubic-bezier(.4,.2,.2,1); }
+.sun-moon svg { aspect-ratio: 1; display: block; fill: #cd2f7b; height: 30%; left: 35%; position: absolute; stroke: transparent; stroke-width: 2px; transition: fill .35s cubic-bezier(.4,0,.2,1), stroke .35s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,.2,.2,1); }
+.sun-moon .sun { top: 0; }
+.sun-moon .moon { bottom: 0; transform: rotate(25deg); }
 
 .motion-visual { bottom: 7%; height: 62%; left: 14%; right: 14%; }
 .motion-visual svg { height: 100%; overflow: visible; width: 100%; }
@@ -161,7 +164,7 @@ a { color: inherit; text-decoration: none; }
 .about-details a { text-decoration: underline; text-decoration-color: #9ec0ff; text-underline-offset: 3px; }
 
 @media (any-hover:hover) {
-  .tile:hover { --icon-cutout: #1e1919; background: #1e1919 !important; color: white !important; }
+  .tile:hover { --icon-cutout: #1a1918; background: #1a1918 !important; color: white !important; }
   .tile:hover .strategy-visual path { opacity: 0; }
   .tile:hover .strategy-visual .one { transform: translate(14px,8px); }
   .tile:hover .strategy-visual .two { transform: translate(14px,-8px); }
@@ -172,16 +175,16 @@ a { color: inherit; text-decoration: none; }
   .tile:hover .type-visual { -webkit-text-stroke: 3px white; color: transparent; }
   .tile:hover .lock-visual svg { transform: translateY(-3px) scale(1.015); }
   .tile:hover .lock-shackle { transform: rotate(-17deg); }
-  .tile:hover .colour-visual > i { background: transparent; border: 2px solid white; }
+  .tile:hover .colour-visual > i { background: transparent; border-color: white; }
   .tile:hover .colour-visual b { background: transparent !important; border: 2px solid white; }
   .tile:hover .colour-visual > i:first-child { transform: translate(calc(100% - 1px),1px); }
   .tile:hover .colour-visual > i:last-child { transform: translate(calc(-100% + 1px),-1px); }
-  .tile:hover .imagery-visual .picture { background: transparent; border: 2px solid white; }
-  .tile:hover .hills { fill: #1e1919; stroke: white; stroke-width: 2px; }
-  .tile:hover .sun-moon i, .tile:hover .sun-moon b { background: transparent; border: 2px solid white; }
-  .tile:hover .sun-moon i { opacity: 0; transform: scale(.68); }
-  .tile:hover .sun-moon b { opacity: 1; transform: scale(1); }
-  .tile:hover .sun-moon { transform: rotate(180deg); }
+  .tile:hover .imagery-visual .picture { background: transparent; }
+  .tile:hover .imagery-visual .picture:after { opacity: 1; }
+  .tile:hover .hills { fill: #1a1918; stroke: white; }
+  .tile:hover .sun-moon svg { fill: transparent; stroke: white; }
+  .tile:hover .sun-moon { transform: rotate(155deg); }
+  .tile:hover .sun-moon .moon { transform: rotate(-155deg); }
   .tile:hover .motion-visual .two { left: 50%; }
   .tile:hover .motion-visual .three { right: 50%; }
   .tile:hover .motion-visual .tangent.one, .tile:hover .motion-visual .tangent.two { width: 50%; }
@@ -212,4 +215,4 @@ a { color: inherit; text-decoration: none; }
   .about-sheet h2 { margin: 13px 0 18px; }
 }
 
-@media (prefers-reduced-motion:reduce) { .tile, .menu-card, .logo-visual .ovws-mark, .sun-moon, .sun-moon i, .sun-moon b { transition: none !important; } }
+@media (prefers-reduced-motion:reduce) { .tile, .menu-card, .logo-visual .ovws-mark, .sun-moon, .sun-moon svg { transition: none !important; } }
