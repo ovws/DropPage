@@ -8,7 +8,7 @@ type Tile = { id: TileId; label: string; href?: string; className: string; drift
 /* The exact eight-tile ordering and movement vectors used by brand.dropbox.com. */
 const tiles: Tile[] = [
   { id: "framework", label: "About", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
-  { id: "voice", label: "Writing", href: "https://www.qiwensong.com/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
+  { id: "voice", label: "Writing", href: "https://home.mugou.pro/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
   { id: "logo", label: "GitHub", href: "https://github.com/ovws", className: "logo", drift: [-1, -0.1], mobileDrift: [0.25, 1.5] },
   { id: "type", label: "Blog", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
   { id: "icon", label: "Tools", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
