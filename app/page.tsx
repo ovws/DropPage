@@ -13,7 +13,7 @@ const tiles: Tile[] = [
   { id: "type", label: "Blog", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
   { id: "icon", label: "Tools", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
   { id: "colour", label: "Loser.dev", href: "https://www.loser.dev/", className: "color", drift: [1, 0.1], mobileDrift: [-0.25, -1.5] },
-  { id: "imagery", label: "Projects", href: "https://ovws.github.io/", className: "imagery", drift: [0.1, -1], mobileDrift: [2, -3] },
+  { id: "imagery", label: "Projects", href: "https://ovws.github.io/Gallery-Yan", className: "imagery", drift: [0.1, -1], mobileDrift: [2, -3] },
   { id: "motion", label: "Links", href: "https://linktr.ee/qiws", className: "motion", drift: [-4, -2], mobileDrift: [-2, -3] },
 ];
 
