@@ -7,14 +7,14 @@ type Tile = { id: TileId; label: string; href: string; className: string; drift:
 
 /* The exact eight-tile ordering and movement vectors used by brand.dropbox.com. */
 const tiles: Tile[] = [
-  { id: "framework", label: "Framework", href: "https://www.qiwensong.com/", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
-  { id: "voice", label: "Voice & Tone", href: "https://ink.loser.dev/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
-  { id: "logo", label: "Logo", href: "https://github.com/ovws", className: "logo", drift: [-1, -0.1], mobileDrift: [0.25, 1.5] },
-  { id: "type", label: "Typography", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
-  { id: "icon", label: "Iconography", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
-  { id: "colour", label: "Color", href: "https://www.loser.dev/", className: "color", drift: [1, 0.1], mobileDrift: [-0.25, -1.5] },
-  { id: "imagery", label: "Imagery", href: "https://ovws.github.io/", className: "imagery", drift: [0.1, -1], mobileDrift: [2, -3] },
-  { id: "motion", label: "Motion", href: "https://linktr.ee/qiws", className: "motion", drift: [-4, -2], mobileDrift: [-2, -3] },
+  { id: "framework", label: "About", href: "https://www.qiwensong.com/", className: "strategy", drift: [4, 2], mobileDrift: [2, 3] },
+  { id: "voice", label: "Writing", href: "https://ink.loser.dev/", className: "voice-tone", drift: [-0.1, 1], mobileDrift: [-2, 3] },
+  { id: "logo", label: "GitHub", href: "https://github.com/ovws", className: "logo", drift: [-1, -0.1], mobileDrift: [0.25, 1.5] },
+  { id: "type", label: "Blog", href: "https://blog.loser.dev/", className: "typography", drift: [-4, 2], mobileDrift: [-1.5, 0.25] },
+  { id: "icon", label: "Tools", href: "https://so.loser.dev/", className: "iconography", drift: [4, -2], mobileDrift: [1.5, -0.25] },
+  { id: "colour", label: "Loser.dev", href: "https://www.loser.dev/", className: "color", drift: [1, 0.1], mobileDrift: [-0.25, -1.5] },
+  { id: "imagery", label: "Projects", href: "https://ovws.github.io/", className: "imagery", drift: [0.1, -1], mobileDrift: [2, -3] },
+  { id: "motion", label: "Links", href: "https://linktr.ee/qiws", className: "motion", drift: [-4, -2], mobileDrift: [-2, -3] },
 ];
 
 function clamp(value: number) { return Math.min(1, Math.max(0, value)); }
@@ -39,16 +39,17 @@ function cubicBezier(x1: number, y1: number, x2: number, y2: number) {
 
 const ease = cubicBezier(1, 0.25, 0.85, 1);
 
-function DropboxMark({ className = "" }: { className?: string }) {
-  return <svg className={`dropbox-mark ${className}`} aria-hidden="true" viewBox="0 0 64 54">
-    <path d="M16 0 32 10 16 20 0 10 16 0Zm32 0 16 10-16 10-16-10L48 0ZM16 22l16 10-16 10L0 32l16-10Zm32 0 16 10-16 10-16-10 16-10ZM32 34l16 10-16 10-16-10 16-10Z" />
+function OvwsMark({ className = "" }: { className?: string }) {
+  return <svg className={`ovws-mark ${className}`} aria-hidden="true" viewBox="0 0 64 54">
+    <path fillRule="evenodd" d="M15 2C6.7 2 2 8.4 2 18s4.7 16 13 16 13-6.4 13-16S23.3 2 15 2Zm0 8c3.3 0 5 3.2 5 8s-1.7 8-5 8-5-3.2-5-8 1.7-8 5-8Z" clipRule="evenodd" />
+    <path d="M31 3h8.6l8.2 23L56 3h8L51.4 36h-7.8L31 3Z" />
   </svg>;
 }
 
 function TileVisual({ id }: { id: TileId }) {
   if (id === "framework") return <span className="tile-visual strategy-visual" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 25Q31.25 32.8 62.5 40.6Q93.75 48.4 100 50C70 57.5 80 55 50 62.5C20 70 30 67.5 0 75" /></svg><i className="dot one" /><i className="dot two" /><i className="dot three" /></span>;
   if (id === "voice") return <span className="tile-visual quote-visual" aria-hidden="true"><i>“</i><i>”</i></span>;
-  if (id === "logo") return <span className="tile-visual logo-visual" aria-hidden="true"><DropboxMark /></span>;
+  if (id === "logo") return <span className="tile-visual logo-visual" aria-hidden="true"><OvwsMark /></span>;
   if (id === "type") return <span className="tile-visual type-visual" aria-hidden="true"><i>A</i><b>a</b></span>;
   if (id === "icon") return <span className="tile-visual lock-visual" aria-hidden="true"><svg viewBox="0 0 102 142"><g className="lock-shackle"><path d="M28 60V39c0-19 8.6-29 23-29s23 10 23 29v21" fill="none" stroke="currentColor" strokeWidth="13" /></g><path className="lock-body" d="M10 54h82c6 0 10 4 10 10v47c0 10-3 18-8.5 23.5C88 140 81 142 70 142H32c-11 0-18-2-24-7.5C2.5 129 0 121 0 111V64c0-6 4-10 10-10Z" /><path className="lock-keyhole" d="M44.5 116h13v-15.3c5.6-2.3 9-7.4 9-13.1 0-8.7-6.9-15.6-15.5-15.6S35.5 79 35.5 87.6c0 5.7 3.5 10.8 9 13.1V116Z" /></svg></span>;
   if (id === "colour") return <span className="tile-visual colour-visual" aria-hidden="true"><i><b /></i><i><b /></i></span>;
@@ -160,7 +161,7 @@ export default function Home() {
         <div className="menu-card" ref={menuRef}>
           <div className="menu-copy initial-copy" ref={initialCopyRef}><span>文山木公 / QI WENSONG</span><h1>我把喜欢的事，<br />做成自己的工具。</h1><p>好奇、耐心，也有一点较真；把好玩的东西做成可用工具，在云、开源与自托管里慢慢折腾。</p></div>
           <div className="menu-copy blue-copy" ref={blueCopyRef}><h2>从云计算到开源工具，<br />我把好奇心变成能用的日常。</h2></div>
-          <DropboxMark className="center-menu-mark" />
+          <OvwsMark className="center-menu-mark" />
         </div>
         <span className="site-credit">QI WENSONG / DROP PAGE / 2026</span>
         <span className="site-chevrons" aria-hidden="true" ref={chevronsRef}><i /><i /></span>
