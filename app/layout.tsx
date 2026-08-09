@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OVWS — DropPage",
-  description: "Qi Wensong（文山木公 / OVWS）的个人主页：云计算、开源、自托管与小工具。",
+  title: "文山木公｜首页",
+  description: "文山木公的个人主页：云计算、开源、自托管与小工具。",
   other: {
     "codex-preview": "development",
   },
